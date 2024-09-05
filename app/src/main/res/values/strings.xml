@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CartaoVisita</string>
+    <string name="nome">Paulo</string>
+    <string name="profissao">Linux Extraordinaire</string>
 </resources>
