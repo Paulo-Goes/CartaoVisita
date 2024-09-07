@@ -7,19 +7,24 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,14 +35,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CartaoVisitaTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = Color.Gray
                 ) {
-                    CartaoImage(
+                    CartaoVisita(
                         stringResource(R.string.nome),
-                        stringResource(R.string.profissao)
+                        stringResource(R.string.profissao),
+                        stringResource(R.string.actualProfissao),
+                        stringResource(R.string.email),
+                        stringResource(R.string.github),
+                        stringResource(R.string.telefone)
                     )
                 }
             }
@@ -46,57 +54,140 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CartaoText(nome: String, profissao: String, modifier: Modifier = Modifier) {
+fun TopContent(nome: String) {
     Column(
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(20.dp),
     ) {
-        Text(
-            text = nome,
-            fontSize = 100.sp,
-            lineHeight = 116.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 16.dp)
+        Image(
+            painter = painterResource(R.drawable.fotoeu),
+            contentDescription = null,
+            modifier = Modifier
+                .size(250.dp)
+                .clip(CircleShape)
         )
         Text(
-            text = profissao,
-            fontSize = 36.sp,
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .padding(end = 16.dp)
-                .align(alignment = Alignment.End)
-
+            text = nome,
+            fontSize = 60.sp,
+            color = Color(0xFF54C285),
+            lineHeight = 116.sp,
+            textAlign = TextAlign.Center,
         )
     }
 }
 
 @Composable
-fun CartaoImage(nome: String, profissao: String, modifier: Modifier = Modifier) {
-    val image = painterResource(R.drawable.linuxpenguin)
-    Box(modifier) {
+fun CenterContent(profissao: String, actualProfissao: String) {
+    Box(modifier = Modifier.padding(top = 60.dp)) {
         Image(
-            painter = painterResource(id = R.drawable.linuxpenguin),
+            painter = painterResource(R.drawable.androidlogo),
             contentDescription = null,
-            contentScale = ContentScale.Crop,
-            alpha = 0.5F
+            alpha = 0.7f,
+            modifier = Modifier.align(Alignment.Center)
         )
-        CartaoText(
-            nome = nome,
-            profissao = profissao,
+        Text(
+            text = profissao,
+            style = TextStyle(
+                fontSize = 32.sp,
+                color = Color(0xFF54C285),
+                textDecoration = TextDecoration.LineThrough
+            ),
             modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
+                .align(Alignment.Center)
+                .padding(top = 130.dp)
+        )
+        Text(
+            text = actualProfissao,
+            fontSize = 32.sp,
+            color = Color.DarkGray,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(top = 220.dp)
         )
     }
+}
+
+@Composable
+fun BottomContent(email: String, github: String, telefone: String) {
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        modifier = Modifier.padding(20.dp)
+    ) {
+        Row(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)) {
+            Icon(
+                painter = painterResource(R.drawable.baseline_email_24),
+                contentDescription = "Email: paulosergiolobogoes@gmail.com",
+                tint = Color(0xFFFFFFFF),
+                modifier = Modifier.padding(start = 20.dp, end = 10.dp)
+            )
+            Text(
+                text = email,
+                fontSize = 18.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
+        }
+        Row(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)) {
+            Icon(
+                painter = painterResource(R.drawable.baseline_code_24),
+                contentDescription = "Github: Paulo_Goes",
+                tint = Color(0xFFFFFFFF),
+                modifier = Modifier.padding(start = 20.dp, end = 10.dp)
+            )
+            Text(
+                text = github,
+                fontSize = 18.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
+        }
+        Row(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)) {
+            Icon(
+                painter = painterResource(R.drawable.baseline_contact_phone_24),
+                //Número do telelefone removido
+                contentDescription = "Phone: +XX X XXXX XXXX",
+                tint = Color(0xFFFFFFFF),
+                modifier = Modifier.padding(start = 20.dp, end = 10.dp)
+            )
+            Text(
+                text = "Phone: $telefone",
+                fontSize = 18.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+@Composable
+fun CartaoVisita(
+    nome: String,
+    profissao: String,
+    actualProfissao: String,
+    email: String,
+    github: String,
+    telefone: String
+) {
+    TopContent(nome)
+    CenterContent(profissao, actualProfissao)
+    BottomContent(email, github, telefone)
 }
 
 @Preview(showBackground = false)
 @Composable
 fun CartaoPreview() {
-    CartaoVisitaTheme {
-        CartaoImage(
-            nome = stringResource(R.string.nome),
-            profissao = stringResource(R.string.profissao)
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = Color.Gray
+    ) {
+        CartaoVisita(
+            stringResource(R.string.nome),
+            stringResource(R.string.profissao),
+            stringResource(R.string.actualProfissao),
+            stringResource(R.string.email),
+            stringResource(R.string.github),
+            stringResource(R.string.telefone)
         )
     }
 }
