@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +42,10 @@ class MainActivity : ComponentActivity() {
                     CartaoVisita(
                         stringResource(R.string.nome),
                         stringResource(R.string.profissao),
-                        stringResource(R.string.actualProfissao)
+                        stringResource(R.string.actualProfissao),
+                        stringResource(R.string.email),
+                        stringResource(R.string.github),
+                        stringResource(R.string.telefone)
                     )
                 }
             }
@@ -50,7 +54,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TopContent(nome: String, modifier: Modifier) {
+fun TopContent(nome: String) {
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -74,8 +78,8 @@ fun TopContent(nome: String, modifier: Modifier) {
 }
 
 @Composable
-fun CenterContent(profissao: String, actualProfissao: String, modifier: Modifier) {
-    Box(modifier) {
+fun CenterContent(profissao: String, actualProfissao: String) {
+    Box(modifier = Modifier.padding(top = 60.dp)) {
         Image(
             painter = painterResource(R.drawable.androidlogo),
             contentDescription = null,
@@ -105,19 +109,69 @@ fun CenterContent(profissao: String, actualProfissao: String, modifier: Modifier
 }
 
 @Composable
+fun BottomContent(email: String, github: String, telefone: String) {
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        modifier = Modifier.padding(20.dp)
+    ) {
+        Row(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)) {
+            Icon(
+                painter = painterResource(R.drawable.baseline_email_24),
+                contentDescription = "Email: paulosergiolobogoes@gmail.com",
+                tint = Color(0xFFFFFFFF),
+                modifier = Modifier.padding(start = 20.dp, end = 10.dp)
+            )
+            Text(
+                text = email,
+                fontSize = 18.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
+        }
+        Row(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)) {
+            Icon(
+                painter = painterResource(R.drawable.baseline_code_24),
+                contentDescription = "Github: Paulo_Goes",
+                tint = Color(0xFFFFFFFF),
+                modifier = Modifier.padding(start = 20.dp, end = 10.dp)
+            )
+            Text(
+                text = github,
+                fontSize = 18.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
+        }
+        Row(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)) {
+            Icon(
+                painter = painterResource(R.drawable.baseline_contact_phone_24),
+                //Número do telelefone removido
+                contentDescription = "Phone: +XX X XXXX XXXX",
+                tint = Color(0xFFFFFFFF),
+                modifier = Modifier.padding(start = 20.dp, end = 10.dp)
+            )
+            Text(
+                text = "Phone: $telefone",
+                fontSize = 18.sp,
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+@Composable
 fun CartaoVisita(
     nome: String,
     profissao: String,
     actualProfissao: String,
-    modifier: Modifier = Modifier
+    email: String,
+    github: String,
+    telefone: String
 ) {
-    TopContent(nome, modifier)
-    CenterContent(profissao, actualProfissao, modifier)
-    Column(
-
-    ) {
-
-    }
+    TopContent(nome)
+    CenterContent(profissao, actualProfissao)
+    BottomContent(email, github, telefone)
 }
 
 @Preview(showBackground = false)
@@ -130,7 +184,10 @@ fun CartaoPreview() {
         CartaoVisita(
             stringResource(R.string.nome),
             stringResource(R.string.profissao),
-            stringResource(R.string.actualProfissao)
+            stringResource(R.string.actualProfissao),
+            stringResource(R.string.email),
+            stringResource(R.string.github),
+            stringResource(R.string.telefone)
         )
     }
 }
