@@ -8,14 +8,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,10 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,9 +39,9 @@ class MainActivity : ComponentActivity() {
                     color = Color.Gray
                 ) {
                     CartaoVisita(
-                        nome = stringResource(R.string.nome),
-                        profissao = stringResource(R.string.profissao),
-                        actualProfissao = stringResource(R.string.actualProfissao)
+                        stringResource(R.string.nome),
+                        stringResource(R.string.profissao),
+                        stringResource(R.string.actualProfissao)
                     )
                 }
             }
@@ -53,25 +50,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CartaoVisita(
-    nome: String,
-    profissao: String,
-    actualProfissao: String,
-    modifier: Modifier = Modifier
-) {
-    Box(modifier) {
-        Image(
-            painter = painterResource(R.drawable.androidlogo),
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.Center),
-            alpha = 0.7f
-        )
-
-    }
+fun TopContent(nome: String, modifier: Modifier) {
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier.padding(20.dp),
     ) {
         Image(
             painter = painterResource(R.drawable.fotoeu),
@@ -83,32 +66,57 @@ fun CartaoVisita(
         Text(
             text = nome,
             fontSize = 60.sp,
-            color = Color(0xFF3ddc84),
+            color = Color(0xFF54C285),
             lineHeight = 116.sp,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 16.dp)
+        )
+    }
+}
+
+@Composable
+fun CenterContent(profissao: String, actualProfissao: String, modifier: Modifier) {
+    Box(modifier) {
+        Image(
+            painter = painterResource(R.drawable.androidlogo),
+            contentDescription = null,
+            alpha = 0.7f,
+            modifier = Modifier.align(Alignment.Center)
         )
         Text(
             text = profissao,
-            fontSize = 50.sp,
-            color = Color(0xFF3ddc84),
+            style = TextStyle(
+                fontSize = 32.sp,
+                color = Color(0xFF54C285),
+                textDecoration = TextDecoration.LineThrough
+            ),
             modifier = Modifier
-                .padding(top = 60.dp)
+                .align(Alignment.Center)
+                .padding(top = 130.dp)
         )
         Text(
             text = actualProfissao,
-            fontSize = 36.sp,
+            fontSize = 32.sp,
+            color = Color.DarkGray,
             modifier = Modifier
-                .padding(top = 16.dp)
+                .align(Alignment.Center)
+                .padding(top = 220.dp)
         )
     }
-    Column() {
-        Row() {
+}
 
-        }
-        Row() {
+@Composable
+fun CartaoVisita(
+    nome: String,
+    profissao: String,
+    actualProfissao: String,
+    modifier: Modifier = Modifier
+) {
+    TopContent(nome, modifier)
+    CenterContent(profissao, actualProfissao, modifier)
+    Column(
 
-        }
+    ) {
+
     }
 }
 
@@ -120,9 +128,9 @@ fun CartaoPreview() {
         color = Color.Gray
     ) {
         CartaoVisita(
-            nome = stringResource(R.string.nome),
-            profissao = stringResource(R.string.profissao),
-            actualProfissao = stringResource(R.string.actualProfissao)
+            stringResource(R.string.nome),
+            stringResource(R.string.profissao),
+            stringResource(R.string.actualProfissao)
         )
     }
 }
