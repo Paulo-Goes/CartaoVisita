@@ -69,7 +69,7 @@ fun TopContent(nome: String) {
         )
         Text(
             text = nome,
-            fontSize = 60.sp,
+            fontSize = 55.sp,
             color = Color(0xFF54C285),
             lineHeight = 116.sp,
             textAlign = TextAlign.Center,
